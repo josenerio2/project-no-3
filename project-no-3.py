@@ -1,5 +1,5 @@
 import re
-import os 
+import os.path
 from datetime import datetime
 from urllib.request import urlretrieve
 
@@ -8,6 +8,9 @@ LOCAL_FILE = 'local_copy.log'
 
 local_file, headers = urlretrieve(URL_PATH, LOCAL_FILE)
 local_file = open('local_copy.log')
+
+if not.os.path.isfile(LOCAL_FILE):
+    print("Downloading file: \nFile saved to:".format(LOCAL_FILE))
 
 reg=re.compile(".*\[(.*) .*\] \".* (.*) .*\" (\d{3}) .*")
 
