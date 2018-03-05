@@ -10,41 +10,21 @@ local_file, headers = urlretrieve(URL_PATH, LOCAL_FILE)
 local_file = open('local_copy.log')
 
 if not.os.path.isfile(LOCAL_FILE):
+    urllib.request.urlretrieve(logurl, "local_copy.log")
     print("Downloading file: \nFile saved to:".format(LOCAL_FILE))
-
-reg=re.compile(".*\[(.*) .*\] \".* (.*) .*\" (\d{3}) .*")
+    
+fh=open(LOCAL_FILE)
 
 total_req=0
 right=[]
 parted=[]
+tfers=0
+dead=0
 
 months_req:{1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0}
 days_req:{0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
-mon=0
-tue=0
-wed=0
-thur=0
-fri=0
-sat=0
-sun=0
 
-jan=0
-feb=0
-mar=0
-apr=0
-may=0
-jun=0
-jul=0
-aug=0
-sep=0
-octo=0
-nov=0
-dec=0
-
-un=0
-suc=0
-
-for line in local_file:
+for line in fh:
     for match in re.finditer(reg, line,):
         match_text = match.group()
         right.append(match_text)
@@ -52,49 +32,12 @@ for line in local_file:
         if len(part)>=7:
             dt=datetime.strptime(part[1], "%d/%b/%Y")
             
-            if dt.weekday==0:
-                mon+=1
-            elif dt.weekday==1:
-                tue+=1
-            elif dt.weekday==2:
-                wed+=1
-            elif dt.weekday==3:
-                thur+=1
-            elif dt.weekday==4:
-                fri+=1
-            elif dt.weekday==5:
-                sat+=1
-            elif dt.weekday==6:
-                sun+=1
-                
-            if dt.month==1:
-                jan+=1
-            elif dt.month==2:
-                feb+=1
-            elif dt.month==3:
-                mar+=1
-            elif dt.month==4:
-                apr+=1
-            elif dt.month==5:
-                may+=1
-            elif dt.month==6:
-                jun+=1
-            elif dt.month==7:
-                jul+=1
-            elif dt.month==8:
-                aug+=1
-            elif dt.month==9:
-                sep+=1
-            elif dt.month==10:
-                octo+=1
-            elif dt.month==11:
-                nov+=1
-            elif dt.month==12:
-                dec+=1
-            
-
+            if int(part[6])>=300 and int(part[6])<=399:
+                tfers+=1
+            if int(part[6]>400 and int(part[6])<=499:
+                dead+=1
                
-        total_req+=1
+            total_req+=1
 #print (un/total_req)
 #print (suc/total_req)
 print (total_req)            
