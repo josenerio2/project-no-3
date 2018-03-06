@@ -9,7 +9,7 @@ LOCAL_FILE = 'local_copy.log'
 local_file, headers = urlretrieve(URL_PATH, LOCAL_FILE)
 local_file = open('local_copy.log')
 
-if not.os.path.isfile(LOCAL_FILE):
+if not os.path.isfile(LOCAL_FILE):
     urllib.request.urlretrieve(logurl, "local_copy.log")
     print("Downloading file: \nFile saved to:".format(LOCAL_FILE))
     
@@ -34,7 +34,7 @@ for line in fh:
             
             if int(part[6])>=300 and int(part[6])<=399:
                 tfers+=1
-            if int(part[6]>400 and int(part[6])<=499:
+            if int(part[6])>400 and int(part[6])<=499:
                 dead+=1
                
             total_req+=1
