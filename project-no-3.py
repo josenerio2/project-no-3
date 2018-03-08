@@ -32,8 +32,7 @@ Jan=0
 months_req=[0]*12
 days_req={0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
 mon_file = {1: "Jan.txt", 2: "Feb.txt", 3: "Mar.txt", 4: "Apr.txt", 5: "May.txt", 6: "Jun.txt", 7: "Jul.txt", 8: "Aug.txt", 9: "Sep.txt", 10: "Oct.txt", 11: "Nov.txt", 12: "Dec.txt"}
-
-for line in fh:        
+    
 
 
 for line in fh:
