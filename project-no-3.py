@@ -7,10 +7,16 @@ URL_PATH = 'https://s3.amazonaws.com/tcmg476/http_access_log'
 LOCAL_FILE = 'local_copy.log'
 
 
+
+if not os.path.isfile(LOCAL_FILE):
+    urllib.request.urlretrieve(logurl, "local_copy.log")
+    print("Downloading file: \nFile saved to:".format(LOCAL_FILE))
+
 if not os.path.exists(LOCAL_FILE):
     print("Downloading file: ")
     urllib.request.urlretrieve(URL_PATH, "local_copy.log")
     
+
     
 fh=open(LOCAL_FILE)
 
@@ -27,6 +33,25 @@ months_req=[0]*12
 days_req={0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
 
 for line in fh:        
+
+
+for line in fh:
+    for match in re.finditer(reg, line,):
+        match_text = match.group()
+        right.append(match_text)
+        part = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", line)
+        if len(part)>=7:
+            dt=datetime.strptime(part[1], "%d/%b/%Y")
+            
+            if int(part[6])>=300 and int(part[6])<=399:
+                tfers+=1
+            if int(part[6])>400 and int(part[6])<=499:
+                dead+=1
+               
+            total_req+=1
+#print (un/total_req)
+#print (suc/total_req)
+print (total_req)            
 
     part = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", line)
     if len(part)>=7:
@@ -79,3 +104,4 @@ for line in fh:
 #print (tfers)
 #print (dead)
 #print (days_req)
+
