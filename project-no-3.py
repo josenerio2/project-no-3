@@ -23,6 +23,7 @@ dead=0
 
 months_req:{1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0}
 days_req:{0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
+mon_file = {1: "Jan.txt", 2: "Feb.txt", 3: "Mar.txt", 4: "Apr.txt", 5: "May.txt", 6: "Jun.txt", 7: "Jul.txt", 8: "Aug.txt", 9: "Sep.txt", 10: "Oct.txt", 11: "Nov.txt", 12: "Dec.txt"}
 
 for line in fh:
     for match in re.finditer(reg, line,):
@@ -38,6 +39,17 @@ for line in fh:
                 dead+=1
                
             total_req+=1
+            
+if not os.path.exists(mon_file[dt.month]):
+    file = open(mon_file[dt.month]), "w")
+    file.write(line)
+    file.close
+else:
+    file = open(mon_file[dt.month]), "a")
+    file.write(line)
+    file.close
+    
+    
 #print (un/total_req)
 #print (suc/total_req)
 print (total_req)            
